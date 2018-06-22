@@ -1,0 +1,93 @@
+[{"application":0,
+  "mipmap":"icon_appointment.png",
+"content":"预约挂号"
+},{"application":1,
+  "mipmap":"payment_hospital.png",
+"content":"门诊缴费"
+},
+{"application":2,
+  "mipmap":"check_check.png",
+"content":"检查检验"
+},
+{"application":3,
+  "mipmap":"icon_zhuyuan_manage.png",
+"content":"住院管理"
+},
+{"application":4,
+  "mipmap":"icon_tijianbaogao.png",
+"content":"体检报告"
+},{"application":5,
+  "mipmap":"ai_asked.png",
+  "content":"智能导诊"
+},
+{"application":6,
+  "mipmap":"icon_blood.png",
+"content":"无偿献血"
+}
+,{"application":7,
+  "mipmap":"icon_canhe_jiaofei.png",
+"content":"参合缴费"
+},
+{"application":8,
+  "mipmap":"icon_yibaochaxun.png",
+"content":"医保查询"
+},
+{"application":9,
+  "mipmap":"icon_yibaobaoxiao.png",
+"content":"医疗报销"
+},{"application":10,
+  "mipmap":"icon_chushengzheng.png",
+"content":"出生证申请"
+},{"application":11,
+  "mipmap":"icon_shengyubaoxian.png",
+"content":"生育保险"
+},{"application":12,
+  "mipmap":"icon_ertongdangan.png",
+"content":"儿童档案"
+},
+{"application":13,
+  "mipmap":"icon_prejiezhong.png",
+"content":"疫苗接种"
+},
+{"application":14,
+  "mipmap":"home_doctor.png",
+"content":"家庭医生"
+},
+{"application":15,
+  "mipmap":"icon_laonianren.png",
+"content":"老年人健康"
+},
+{"application":16,
+  "mipmap":"icon_manxingbing.png",
+"content":"慢性病管理"
+},
+{"application":17,
+  "mipmap":"icon_fuyou.png",
+"content":"妇幼保健"
+},{"application":18,
+  "mipmap":"icon_shengyuzhengmanage.png",
+"content":"生育证管理"
+},{"application":19,
+  "mipmap":"icon_jishengbutie.png",
+"content":"计生补贴"
+},
+{"application":20,
+  "mipmap":"icon_dushengzinv.png",
+"content":"独生补贴"
+},{"application":21,
+    "mipmap":"icon_shengyumanage.png",
+"content":"生育管理"
+},{"application":22,
+  "mipmap":"icon_heliyongyao.png",
+"content":"合理用药"
+},{"application":23,
+  "mipmap":"icon_jiankangzheng.png",
+"content":"健康证管理"},{"application":24,
+  "mipmap":"icon_yishizhige.png",
+"content":"执业医师"},{"application":25,
+  "mipmap":"icon_hushizhiye.png",
+"content":"护士执业"},{"application":26,
+  "mipmap":"icon_yaojishi.png",
+"content":"药剂师"},{"application":27,
+  "mipmap":"icon_xinlizixun.png",
+"content":"心理咨询师"}]
