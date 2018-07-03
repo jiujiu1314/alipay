@@ -54,7 +54,6 @@ public class MysectionAdapter extends BaseSectionQuickAdapter<MySection, BaseVie
                 }
             }
             helper.setImageBitmap(R.id.pic_service, CommonTool.getImageFromAssetsFile(video.getMipmap(), context));
-//            Glide.with(context).load(CommonTool.getImageFromAssetsFile(video.getMipmap(), context)).into(R.id.pic_service);
             helper.setText(R.id.service_text, video.getContent());
         } catch (Exception e) {
             e.printStackTrace();

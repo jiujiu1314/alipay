@@ -190,7 +190,6 @@ public class CommonTool {
             applicationImageModel.setSelect(list.get(i).isSelect());
             newlist.add(applicationImageModel);
         }
-
         return newlist;
     }
 
@@ -207,16 +206,14 @@ public class CommonTool {
             video.setApplication(nodelss.get(k).getApplication());
             video.setContent(nodelss.get(k).getContent());
             datas.add(video);
-
         }
-
         return datas;
     }
 
     public static List<ApplicationImageModel> addFooter( List<ApplicationImageModel> datas){
         ApplicationImageModel applicationImageModel = new ApplicationImageModel();
         applicationImageModel.setApplication(111);
-        applicationImageModel.setSelect(false);
+        applicationImageModel.setSelect(true);
         datas.add(applicationImageModel);
 
         return datas;

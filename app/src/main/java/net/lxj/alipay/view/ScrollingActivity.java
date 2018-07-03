@@ -2,6 +2,7 @@ package net.lxj.alipay.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +23,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
+import com.tencent.imsdk.TIMLogLevel;
+import com.tencent.imsdk.TIMManager;
+import com.tencent.imsdk.TIMSdkConfig;
 
 import net.lxj.alipay.R;
 import net.lxj.alipay.adapter.ShowMyAdapter;
@@ -39,7 +43,7 @@ import java.util.List;
  * 首页
  */
 public class ScrollingActivity extends AppCompatActivity {
-    private static final String TAG ="ScrollingActivity" ;
+    private static final String TAG = "ScrollingActivity";
     private CollapsingToolbarLayoutState state;
     private RecyclerView recyclerViewist;
     AppBarLayout appBarLayout;
@@ -48,11 +52,16 @@ public class ScrollingActivity extends AppCompatActivity {
     RelativeLayout toolbartwo;
     List<ApplicationImageModel> list = new ArrayList<>();
     private ShowMyAdapter showMyAdapter;
+
     private enum CollapsingToolbarLayoutState {
         EXPANDED,
         COLLAPSED,
         INTERNEDIATE
     }
+
+    public static final int ACCOUNT_TYPE = 792;
+    //sdk appid 由腾讯分配
+    public static final int SDK_APPID = 1400001533;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,7 @@ public class ScrollingActivity extends AppCompatActivity {
         appBarLayout = findViewById(R.id.app_bar);
         collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
         recyclerViewist = findViewById(R.id.recycle_list);
+        initIm();
         initView();
         toolbarone = findViewById(R.id.toolbarone);
         toolbartwo = findViewById(R.id.toolbartwo);
@@ -70,29 +80,29 @@ public class ScrollingActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+    }
+
+    private void initIm() {
+        //初始化 SDK 基本配置
+        TIMSdkConfig config = new TIMSdkConfig(SDK_APPID)
+                .enableCrashReport(false)
+                .enableLogPrint(true)
+                .setLogLevel(TIMLogLevel.DEBUG)
+                .setLogPath(Environment.getExternalStorageDirectory().getPath() + "/justfortest/");
+
+//初始化 SDK
+        TIMManager.getInstance().init(getApplicationContext(), config);
     }
 
     private void initData() throws Exception {
-//        if(SharedPref.getInstance(this).getString("myapplication","").equals("")) {
-            list = CommonTool.addFooter(CommonTool.getdatas(this));//初始化默认展示7个
-            getAdaptermy().setNewData(list);
-            SharedPref.getInstance(this).putString("myapplication", new Gson().toJson(CommonTool.getdatas(this)));
-//        }else {
-//            list = CommonTool.addFooter(CommonTool.getTopData(SharedPref.getInstance(this).getString("myapplication",""),this));
-//            getAdaptermy().setNewData(list);
-//        }
+        list = CommonTool.addFooter(CommonTool.getdatas(this));//初始化默认展示7个
+        getAdaptermy().setNewData(list);
+        SharedPref.getInstance(this).putString("myapplication", new Gson().toJson(CommonTool.getdatas(this)));
     }
 
     private void initView() {
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
         recyclerViewist.setLayoutManager(gridLayoutManager);
         recyclerViewist.setNestedScrollingEnabled(false);
         state = CollapsingToolbarLayoutState.EXPANDED;
@@ -130,25 +140,22 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private BaseQuickAdapter getAdaptermy() throws Exception {
-        if(showMyAdapter==null){
+        if (showMyAdapter == null) {
             showMyAdapter = new ShowMyAdapter(R.layout.item_content, list, this);
             recyclerViewist.setAdapter(showMyAdapter);
         }
         showMyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if(showMyAdapter.getData().get(position).getApplication()==111){
+                if (showMyAdapter.getData().get(position).getApplication() == 111) {
                     //点击更多跳转
                     Intent intent = new Intent();
-                    intent.setClass(ScrollingActivity.this,SecondLevelActivity.class);
-                    startActivityForResult(intent,100);
-                }else {
+                    intent.setClass(ScrollingActivity.this, SecondLevelActivity.class);
+                    startActivityForResult(intent, 100);
+                } else {
                     //应用跳转
-                    Toast.makeText(ScrollingActivity.this,showMyAdapter.getData().get(position).getContent(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScrollingActivity.this, showMyAdapter.getData().get(position).getContent(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -158,12 +165,12 @@ public class ScrollingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==300&&CommonTool.getTopData(SharedPref.getInstance(this).getString("myapplication", ""), this).size()!=1){
-           showMyAdapter.getData().clear();
-           showMyAdapter.notifyDataSetChanged();
-            Log.d(TAG,SharedPref.getInstance(this).getString("myapplication","222"));
-          list =  CommonTool.getTopData(SharedPref.getInstance(this).getString("myapplication", ""), this);
-          showMyAdapter.setNewData(list);
+        if (resultCode == 300 && CommonTool.getTopData(SharedPref.getInstance(this).getString("myapplication", ""), this).size() != 1) {
+            showMyAdapter.getData().clear();
+            showMyAdapter.notifyDataSetChanged();
+            Log.d(TAG, SharedPref.getInstance(this).getString("myapplication", "222"));
+            list = CommonTool.getTopData(SharedPref.getInstance(this).getString("myapplication", ""), this);
+            showMyAdapter.setNewData(list);
         }
     }
 }

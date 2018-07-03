@@ -21,20 +21,20 @@ public class MyAdapter extends BaseItemDraggableAdapter<ApplicationImageModel,Ba
     }
     @Override
     protected void convert(BaseViewHolder helper, ApplicationImageModel item) {
-        helper.setImageResource(R.id.setting, R.drawable.delet);
+//        if(item.isSelect()){
+            helper.getView(R.id.setting).setVisibility(View.VISIBLE);
+            helper.setImageResource(R.id.setting, R.drawable.delet);
+//        }
         helper.setText(R.id.service_text,item.getContent());
         try {
-//        helper.set(R.id.pic_service, DataSample.getJson(video.getImg(), context));
             if(item.getApplication()==111){
                 helper.getView(R.id.setting).setVisibility(View.GONE);
                 helper.getView(R.id.re_background).setVisibility(View.GONE);
                 if(getData().size() < 8) {
                     helper.getView(R.id.coupon_popup).setVisibility(View.VISIBLE);
                 }else {
-//                    helper.getView(R.id.re_background).setVisibility(View.GONE);
                     helper.getView(R.id.coupon_popup).setVisibility(View.GONE);
                 }
-//            helper.setImageBitmap(R.id.pic_service, DataSample.getImageFromAssetsFile(item.getMipmap(),context));
             }else {
                 helper.getView(R.id.re_background).setVisibility(View.VISIBLE);
                 helper.getView(R.id.coupon_popup).setVisibility(View.GONE);

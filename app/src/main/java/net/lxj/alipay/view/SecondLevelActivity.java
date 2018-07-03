@@ -139,6 +139,7 @@ public class SecondLevelActivity extends AppCompatActivity implements OnItemDrag
         recyclerViewTitle.setVisibility(View.GONE);
         recyclerViewMy.setVisibility(View.VISIBLE);
         recyclerViewContent.setVisibility(View.VISIBLE);
+        recyclerViewTitle.setHasFixedSize(true);
         getContentAdapter().setNewData(mySections);
         getChooseAdapter().setNewData(list);
         getTopAdapter().setNewData(bitmapList);
@@ -167,25 +168,27 @@ public class SecondLevelActivity extends AppCompatActivity implements OnItemDrag
                     if (editorStatus) {
                         //这里是编辑状态的点击事件
                         boolean isSelect = video.isSelect();
+//                        if(view.getId() == R.id.setting)
                         if (!isSelect) {
                             if (index < 7) {
                                 index++;
                                 video.setSelect(true);
                                 mySections.get(position).t.setSelect(true);
-                                myAdapter.addData(getChooseAdapter().getData().size() - 1, video);
+                                list.add(list.size()-1,video);
+                                getChooseAdapter().setNewData(list);
                                 Log.d("tag", "" + position);
                             } else {
                                 Toast.makeText(SecondLevelActivity.this, "应用最多只能添加7个", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            video.setSelect(false);
                             mySections.get(position).t.setSelect(false);
                             for (int i = 0; i < list.size() - 1; i++) {
                                 if (mySections.get(position).t.getApplication() == list.get(i).getApplication()) {
                                     list.remove(i);
+                                    index--;
                                 }
                             }
-                            index--;
+
                         }
                         getContentAdapter().notifyDataSetChanged();
                         getChooseAdapter().notifyDataSetChanged();
@@ -213,22 +216,21 @@ public class SecondLevelActivity extends AppCompatActivity implements OnItemDrag
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 try {
                     ApplicationImageModel video = list.get(position);
+//                    if(view.getId() == R.id.setting)
                     if (editorStatus) {
                         if (video.isSelect()) {
-                            video.setSelect(false);
-                            list.remove(video);
+                            list.remove(position);
+                            getChooseAdapter().setNewData(list);
                             mySections = CommonTool.getSampleData(SecondLevelActivity.this,CommonTool.getList(list));
                             index--;
+                            getContentAdapter().setNewData(mySections);
                         }
-                        getContentAdapter().setNewData(mySections);
-                        getChooseAdapter().notifyDataSetChanged();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-
 
         return myAdapter;
     }

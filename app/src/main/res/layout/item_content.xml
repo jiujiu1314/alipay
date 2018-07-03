@@ -25,7 +25,8 @@
             android:id="@+id/setting"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/adds"
+            android:src="@drawable/add"
+            android:visibility="visible"
             android:layout_marginRight="@dimen/dp_4"
             android:layout_alignRight="@+id/pic_service"
             android:layout_alignParentTop="true"/>
